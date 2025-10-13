@@ -1,0 +1,32 @@
+:root {
+    --primary-color: #6d59e8;
+    --primary-color-light: #f0edff;
+    --secondary-color: #1d1d41;
+    --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --card-background: #ffffff;
+    --text-color: #495057;
+    --button-cancel: #b2b5b8;
+    --text-color-light: #6c757d;
+    --header-color: var(--secondary-color);
+    --border-color: #dee2e6;
+
+    // Cores de Status e Prioridade
+    --status-pending: #ffc107;
+    --status-in-progress: #17a2b8;
+    --status-completed: #28a745;
+    --priority-high: #dc3545;
+    --priority-medium: #fd7e14;
+    --priority-low: #007bff;
+
+    --font-size-base: 1.6rem; // Com html { font-size: 62.5% } -> 1.6rem = 16px
+    --font-size-title: 3.2rem;
+    --font-weight-normal: 400;
+    --font-weight-bold: 600;
+
+    // Espaçamento e Bordas
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --border-radius: 12px;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --transition-speed: 0.3s ease;
+}

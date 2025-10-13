@@ -1,0 +1,191 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.title {
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+    color: var(--header-color);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    animation: fadeInDown 0.5s ease forwards;
+}
+
+//-----------------------------------------------------
+// 4. ESTILOS DO CARD E DA TABELA (PRIMEREACT)
+//-----------------------------------------------------
+.card {
+    position: relative;
+    flex-direction: column; 
+    display: flex;
+    min-height: 25rem;
+    width: 100%;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    padding: var(--spacing-md);
+    overflow: hidden; 
+    animation: fadeInUp 0.6s ease forwards;
+
+    .add-task {
+        position: absolute;   
+        bottom: 0px;         
+        right: 20px;          
+        margin-bottom: var(--spacing-lg);
+        color: var(--priority-low);
+        background-color: transparent;
+        border: none;
+
+    }
+
+    // Customização da DataTable do PrimeReact
+    .p-datatable {
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+        .p-datatable-thead > tr > th {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--header-color);
+            font-size: 1.4rem;
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.5px;
+            padding: 1.5rem 1rem;
+        }
+
+        .p-datatable-wrapper {
+            overflow-y: auto; // A rolagem fica aqui, no wrapper da tabela
+            flex-grow: 1;     // Permite que o wrapper cresça para preencher o espaço
+        }
+
+        .p-datatable-tbody > tr {
+            border: none;
+            transition:
+                background-color var(--transition-speed),
+                transform var(--transition-speed);
+
+            &:hover {
+                background-color: var(--primary-color-light);
+                transform: translateY(-2px);
+            }
+        }
+
+        .p-datatable-tbody > tr > td {
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem 1rem;
+            vertical-align: middle;
+            color: var(--text-color-light);
+
+            &:first-child {
+                color: var(--text-color);
+                font-weight: var(--font-weight-bold);
+            }
+        }
+
+        // Remove a última borda da tabela
+        .p-datatable-tbody > tr:last-child > td {
+            border-bottom: none;
+        }
+    }
+}
+
+//-----------------------------------------------------
+// 5. BADGES DE STATUS E PRIORIDADE (Criatividade!)
+// Crie classes para aplicar dinamicamente nos seus dados.
+//-----------------------------------------------------
+.status-badge,
+.priority-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    font-weight: var(--font-weight-bold);
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.status-badge {
+    &.pending {
+        background-color: var(--status-pending);
+    }
+    &.in-progress {
+        background-color: var(--status-in-progress);
+    }
+    &.completed {
+        background-color: var(--status-completed);
+    }
+}
+
+.priority-badge {
+    &.high {
+        background-color: var(--priority-high);
+    }
+    &.medium {
+        background-color: var(--priority-medium);
+    }
+    &.low {
+        background-color: var(--priority-low);
+    }
+}
+
+//-----------------------------------------------------
+// 6. RESPONSIVIDADE (100% Responsivo)
+//-----------------------------------------------------
+@media (max-width: 768px) {
+    html {
+        font-size: 58%; 
+    }
+
+    .container {
+        padding: var(--spacing-md);
+    }
+
+    .title {
+        font-size: 2.8rem;
+    }
+
+    .card {
+        padding: 0;
+        .p-datatable-wrapper {
+            overflow-x: auto;
+        }
+        .p-datatable-thead > tr > th,
+        .p-datatable-tbody > tr > td {
+            white-space: nowrap;
+            padding: 1.5rem;
+        }
+    }
+}
+
+//-----------------------------------------------------
+// 7. ANIMAÇÕES
+//-----------------------------------------------------
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,32 @@
+@import "./core.scss";
+@import "./variables.scss";
+
+html,
+body,
+#root,
+.main {
+    height: 100vh !important;
+    width: 100%;
+    margin: 0;
+    font-family: "PoppinsRegular", "Rubik", sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-size: 62.5%;
+}
+
+body {
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+    background: var(--background-gradient);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
