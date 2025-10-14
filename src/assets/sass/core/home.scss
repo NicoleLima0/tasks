@@ -61,8 +61,8 @@
         }
 
         .p-datatable-wrapper {
-            overflow-y: auto; // A rolagem fica aqui, no wrapper da tabela
-            flex-grow: 1;     // Permite que o wrapper cresça para preencher o espaço
+            overflow-y: auto; 
+            flex-grow: 1;   
         }
 
         .p-datatable-tbody > tr {
@@ -72,7 +72,6 @@
                 transform var(--transition-speed);
 
             &:hover {
-                background-color: var(--primary-color-light);
                 transform: translateY(-2px);
             }
         }
