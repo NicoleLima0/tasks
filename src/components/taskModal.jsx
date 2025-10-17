@@ -28,7 +28,7 @@ function TaskModal({ visible, onHide, onSave, taskToEdit }) {
   }, [taskToEdit, visible]);
 
   const handleSave = () => {
-    // 4. Monta o objeto de dados sem o ID. O ID será gerenciado pelo serviço.
+    // Monta o objeto de dados sem o ID. O ID será gerenciado pelo serviço.
     const taskData = {
       taskName: taskName,
       status: selectedStatus,

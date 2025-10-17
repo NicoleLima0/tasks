@@ -10,12 +10,17 @@ import {
   deleteTask,
 } from "../../services/taskService";
 import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
+import { SelectButton } from "primereact/selectbutton";
+import KanbanBoard from "../../components/kanbanBoard";
 
 function Home() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [taskToEdit, setTaskToEdit] = useState(null);
+  const [viewMode, setViewMode] = useState("Tabela");
+
+  const viewOptions = ["Tabela", "Kanban"];
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -66,7 +71,7 @@ function Home() {
       message: `Tem certeza que deseja excluir a tarefa "${task.taskName}"?`,
       header: "Confirmação de Exclusão",
       acceptLabel: "Sim, excluir",
-      rejectLabel: "",
+      rejectLabel: "Cancelar",
       accept: () => handleDeleteTask(task.id),
     });
   };
@@ -83,7 +88,7 @@ function Home() {
         </button>
         <button
           onClick={() => confirmDelete(rowData)}
-          className="p-button p-button-icon-only p-button-rounded p-button-text p-button-danger"
+          className="p-confirm-dialog"
           title="Excluir"
         >
           <TrashIcon size={15} />
@@ -94,26 +99,39 @@ function Home() {
 
   return (
     <>
-      <ConfirmDialog className="task-modal" 
-      />
+      <ConfirmDialog className="task-modal" />
       <div className="container">
         <div className="title">Gerenciador de tarefas</div>
+        <div className="view-options">
+        <SelectButton
+          value={viewMode}
+          options={viewOptions}
+          onChange={(e) => setViewMode(e.value)}
+        />
+        </div>
         <div className="card">
-          <DataTable
-            value={tasks}
-            tableStyle={{ minWidth: "50rem" }}
-            emptyMessage="Nenhuma tarefa encontrada."
-          >
-            <Column field="taskName" header="Tarefa"></Column>
-            <Column field="status" header="Status"></Column>
-            <Column field="priority" header="Prioridade"></Column>
-            <Column field="description" header="Descrição"></Column>
-            <Column
-              body={actionsBodyTemplate}
-              style={{ width: "5rem", textAlign: "center" }}
+          {viewMode === "Tabela" ? (
+            <DataTable
+              value={tasks}
+              tableStyle={{ minWidth: "50rem" }}
+              emptyMessage="Nenhuma tarefa encontrada."
+            >
+              <Column field="taskName" header="Tarefa"></Column>
+              <Column field="status" header="Status"></Column>
+              <Column field="priority" header="Prioridade"></Column>
+              <Column field="description" header="Descrição"></Column>
+              <Column
+                body={actionsBodyTemplate}
+                style={{ width: "5rem", textAlign: "center" }}
+              />
+            </DataTable>
+          ) : (
+            <KanbanBoard
+              tasks={tasks}
+              onEditTask={handleOpenEditModal}
+              onDeleteTask={confirmDelete}
             />
-          </DataTable>
-
+          )}
           <TaskModal
             visible={isModalVisible}
             onHide={() => setIsModalVisible(false)}
