@@ -48,7 +48,7 @@ export const updateTask = async (taskId, taskData) => {
   });
 };
 
-export const deleteTask = async (taskId) => {
+export const deleteTask = async (taskId, setTask) => {
   return new Promise(async (resolve) => {
     // 1. Pega todas as tarefas atuais
     const currentTasks = await getTasks();
@@ -59,6 +59,7 @@ export const deleteTask = async (taskId) => {
 
     // 3. Salva a nova lista (sem a tarefa deletada) no localStorage
     localStorage.setItem("tasks", JSON.stringify(remainingTasks));
+    setTask(remainingTasks);
 
     resolve(true);
   });

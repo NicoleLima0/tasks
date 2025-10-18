@@ -50,25 +50,6 @@ function TaskModal({ visible, onHide, onSave, taskToEdit }) {
     { label: "Baixa", value: "Baixa" },
   ];
 
-
-  const modalFooter = (
-    <div className="addtask">
-      <Button
-        label="Cancelar"
-        icon="pi pi-times"
-        onClick={onHide}
-        className="p-button-text"
-        
-      />
-      <Button
-        label="Salvar Tarefa"
-        icon="pi pi-check"
-        onClick={handleSave}
-        autoFocus
-      />
-    </div>
-  );
-
   return (
     <Dialog
       header={taskToEdit ? "Editar Tarefa" : "Adicionar Nova Tarefa"}
@@ -76,53 +57,73 @@ function TaskModal({ visible, onHide, onSave, taskToEdit }) {
       style={{ width: "90vw", maxWidth: "600px" }}
       modal
       onHide={onHide}
-      footer={modalFooter}
       draggable={false}
       className="task-modal"
     >
-      <div className="p-fluid grid form-grid">
-        <div className="field col-12">
-          <label htmlFor="task-name">Nome da Tarefa</label>
-          <InputText
-            id="task-name"
-            autoFocus
-            value={taskName}
-            onChange={(e) => setTaskName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="field col-12 md:col-6">
-          <label htmlFor="priority">Prioridade</label>
-          <Dropdown
-            id="priority"
-            options={priorities}
-            placeholder="Selecione uma prioridade"
-            value={selectedPriority}
-            onChange={(e) => setSelectedPriority(e.value)}
-            required
-          />
-          <div className="field col-12 md:col-6">
-            <label htmlFor="status">Status</label>
-            <Dropdown
-              id="status"
-              options={statuses}
-              placeholder="Selecione um status"
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.value)}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSave();
+        }}
+      >
+        {" "}
+        <div className="p-fluid grid form-grid">
+          <div className="field col-12">
+            <label htmlFor="task-name">Nome da Tarefa</label>
+            <InputText
+              id="task-name"
+              autoFocus
+              value={taskName}
+              onChange={(e) => setTaskName(e.target.value)}
               required
             />
           </div>
+          <div className="field col-12 md:col-6">
+            <label htmlFor="priority">Prioridade</label>
+            <Dropdown
+              id="priority"
+              options={priorities}
+              placeholder="Selecione uma prioridade"
+              value={selectedPriority}
+              onChange={(e) => setSelectedPriority(e.value)}
+              required
+            />
+            <div className="field col-12 md:col-6">
+              <label htmlFor="status">Status</label>
+              <Dropdown
+                id="status"
+                options={statuses}
+                placeholder="Selecione um status"
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.value)}
+                required
+              />
+            </div>
+          </div>
+          <div className="field col-12">
+            <label htmlFor="description">Descrição</label>
+            <InputTextarea
+              id="description"
+              rows={4}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
         </div>
-        <div className="field col-12">
-          <label htmlFor="description">Descrição</label>
-          <InputTextarea
-            id="description"
-            rows={4}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-      </div>
+        <div className="addtask">
+      <Button type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        onClick={onHide}
+        className="p-button-text"
+      />
+      <Button type="submit"
+        label="Salvar Tarefa"
+        icon="pi pi-check"
+        autoFocus
+      />
+    </div>
+      </form>
     </Dialog>
   );
 }

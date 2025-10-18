@@ -59,8 +59,7 @@ function Home() {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await deleteTask(taskId);
-      setTasks(tasks.filter((task) => task.id !== taskId));
+      await deleteTask(taskId, setTasks);
     } catch (error) {
       console.error("Falha ao deletar a tarefa.", error);
     }
@@ -103,15 +102,16 @@ function Home() {
       <div className="container">
         <div className="title">Gerenciador de tarefas</div>
         <div className="view-options">
-        <SelectButton
-          value={viewMode}
-          options={viewOptions}
-          onChange={(e) => setViewMode(e.value)}
-        />
+          <SelectButton
+            value={viewMode}
+            options={viewOptions}
+            onChange={(e) => setViewMode(e.value)}
+          />
         </div>
         <div className="card">
           {viewMode === "Tabela" ? (
             <DataTable
+              loading={loading}
               value={tasks}
               tableStyle={{ minWidth: "50rem" }}
               emptyMessage="Nenhuma tarefa encontrada."
