@@ -1,97 +1,117 @@
+
+
 .task-modal {
     .button-sucess {
         color: var(--priority-low);
     }
 
-    .p-dialog-header {
-        padding: 1.5rem 2.5rem;
-        border-bottom: 1px solid var(--border-color);
-
-        .p-dialog-title {
-            color: var(--secondary-color);
-            font-weight: var(--font-weight-bold);
-            font-size: 2rem;
+    .addtask {
+        display: flex !important;
+        justify-content: flex-end !important;
+        margin-top: 1rem !important;
+        font-weight: bold;
+        .p-button-text,
+        .p-button,
+        .p-component {
+            padding: 5px !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            font-size: var(--size) !important;
         }
     }
+}
+.p-dialog-header {
+    padding: 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--border-color);
 
-    .p-dialog-content {
-        background: var(--card-background);
-        padding: 1.5rem 2.5rem 2.5rem 2.5rem;
-        .field + .field {
-            margin-top: 2.2rem;
-        }
+    .p-dialog-title {
+        color: var(--secondary-color);
+        font-weight: var(--font-weight-bold);
+    }
+}
 
-        .field {
-            display: flex;
-            flex-direction: column;
-
-            label {
-                font-size: 1.4rem;
-                color: var(--text-color);
-                font-weight: var(--font-weight-bold);
-                margin-bottom: 0.8rem;
-            }
-        }
-
-        .p-inputtext,
-        .p-dropdown,
-        .p-inputtextarea {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-color);
-            transition: all var(--transition-speed);
-            font-size: var(--font-size-base);
-            padding: 0.6rem;
-
-            &:hover {
-                border-color: var(--primary-color);
-            }
-
-            &:focus,
-            &.p-focus {
-                border-color: var(--primary-color);
-                box-shadow: 0 0 0 2px var(--primary-color-light);
-            }
-        }
+.p-dialog-content {
+    background: var(--card-background);
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    .field + .field {
+        margin-top: 1.2rem;
     }
 
-    .p-dialog-footer {
+    .field {
         display: flex;
+        flex-direction: column;
+        margin-top: 1.2rem;
+
+        label {
+            color: var(--text-color);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: 0.8rem;
+        }
+    }
+
+    .p-inputtext,
+    .p-dropdown,
+    .p-inputtextarea {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-color);
+        transition: all var(--transition-speed);
+        padding: 0.6rem;
+
+        &:hover {
+            border-color: var(--primary-color);
+        }
+
+        &:focus,
+        &.p-focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-color-light);
+        }
+    }
+}
+
+.p-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.5rem 2.5rem;
+    border-top: 1px solid var(--border-color);
+
+    .addtask {
+        padding: 5px;
+        display: flex;
+        align-items: flex-end;
         justify-content: flex-end;
-        gap: 1rem;
-        padding: 1.5rem 2.5rem;
-        border-top: 1px solid var(--border-color);
+        gap: 11px;
+        font-size: var(--size);
+        display: contents;
+        /* MUDANÇA GERAL NO ESTILO DOS BOTÕES */
+        .p-button {
+            border: none;
+            cursor: pointer;
+            border-radius: var(--border-radius);
+            padding: 1.1rem 2rem;
+            transition: all var(--transition-speed);
 
-        .addtask {
-            display: contents;
-            /* MUDANÇA GERAL NO ESTILO DOS BOTÕES */
-            .p-button {
-                border: none;
-                cursor: pointer;
-                font-weight: var(--font-weight-bold);
-                border-radius: var(--border-radius);
-                padding: 1.1rem 2rem;
-                transition: all var(--transition-speed);
+            // Estilo do botão "Cancelar"
+            &.p-button-text {
+                background-color: var(--button-cancel);
+                color: #ffffff;
 
-                // Estilo do botão "Cancelar"
-                &.p-button-text {
-                    background-color: var(--button-cancel);
-                    color: #ffffff;
-
-                    &:hover {
-                        transform: translateY(-2px);
-                    }
+                &:hover {
+                    transform: translateY(-2px);
                 }
+            }
 
-                // Estilo do botão "Salvar Tarefa"
-                &:not(.p-button-text) {
-                    background-color: var(--priority-low);
-                    color: #ffffff;
+            // Estilo do botão "Salvar Tarefa"
+            &:not(.p-button-text) {
+                background-color: var(--priority-low);
+                color: #ffffff;
 
-                    &:hover {
-                        transform: translateY(-2px);
-                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-                    }
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
                 }
             }
         }

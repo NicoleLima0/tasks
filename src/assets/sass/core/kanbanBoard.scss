@@ -3,6 +3,8 @@
     gap: 1rem;
     padding: 1rem;
     overflow-x: auto;
+    min-height: calc(100vh - 305px);
+    max-height: calc(100vh - 305px);
 
     .kanban-column {
         flex: 1;
@@ -13,7 +15,7 @@
 
         h3 {
             padding: 0.5rem;
-            font-size: 1rem;
+            font-size: var(--size);
             font-weight: 600;
             color: #172b4d;
         }
@@ -37,6 +39,7 @@
                 h4 {
                     margin: 0;
                     font-weight: 600;
+                    font-size: var(--size);
                 }
 
                 .task-card-actions {

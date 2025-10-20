@@ -1,7 +1,7 @@
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { CirclePlusIcon, PencilIcon, TrashIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TaskModal from "../../components/taskModal";
 import {
   getTasks,
@@ -12,8 +12,13 @@ import {
 import { confirmDialog, ConfirmDialog } from "primereact/confirmdialog";
 import { SelectButton } from "primereact/selectbutton";
 import KanbanBoard from "../../components/kanbanBoard";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
 
 function Home() {
+  const toast = useRef(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,6 +31,7 @@ function Home() {
     const fetchTasks = async () => {
       setLoading(true);
       const data = await getTasks();
+
       setTasks(data);
       setLoading(false);
     };
@@ -37,11 +43,13 @@ function Home() {
     try {
       if (taskToEdit) {
         const updatedTask = await updateTask(taskToEdit.id, taskData);
+
         setTasks(
           tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
         );
       } else {
         const savedTask = await createTask(taskData);
+
         setTasks([...tasks, savedTask]);
       }
     } catch (error) {
@@ -96,9 +104,56 @@ function Home() {
     );
   };
 
+  const handleDropTask = (task, newStatus) => {
+    const oldStatus = task.status;
+    if (oldStatus === newStatus) {
+      return;
+    }
+
+    if (oldStatus === "Pendente" && newStatus === "Concluída") {
+      toast.current.show({
+        severity: "warn",
+        summary: "Alerta",
+        detail:
+          "Ação inválida: Tarefas Pendente não podem ir direto para Concluída.",
+      });
+
+      return;
+    }
+    if (oldStatus === "Concluída" && newStatus === "Pendente") {
+      toast.current.show({
+        severity: "warn",
+        summary: "Alerta",
+        detail:
+          "Ação inválida: Tarefas Concluída não podem voltar para Pendente.",
+      });
+
+      return;
+    }
+
+    const updatedTasks = tasks.map((t) => {
+      if (t.id === task.id) {
+        return { ...t, status: newStatus };
+      }
+      return t;
+    });
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
   return (
     <>
+      <Toast ref={toast} />
       <ConfirmDialog className="task-modal" />
+      <TaskModal
+        visible={isModalVisible}
+        onHide={() => {
+          setIsModalVisible(false);
+          setTaskToEdit(null);
+        }}
+        onSave={handleSaveTask}
+        taskToEdit={taskToEdit}
+      />
       <div className="container">
         <div className="title">Gerenciador de tarefas</div>
         <div className="view-options">
@@ -126,26 +181,23 @@ function Home() {
               />
             </DataTable>
           ) : (
-            <KanbanBoard
-              tasks={tasks}
-              onEditTask={handleOpenEditModal}
-              onDeleteTask={confirmDelete}
-            />
+            <DndProvider backend={HTML5Backend}>
+              <KanbanBoard
+                handleDropTask={handleDropTask}
+                tasks={tasks}
+                onEditTask={handleOpenEditModal}
+                onDeleteTask={confirmDelete}
+              />
+            </DndProvider>
           )}
-          <TaskModal
-            visible={isModalVisible}
-            onHide={() => setIsModalVisible(false)}
-            onSave={handleSaveTask}
-            taskToEdit={taskToEdit}
-          />
-          <footer>
-            <button
+          <div className="footer-btns">
+            <Button
               onClick={() => setIsModalVisible(true)}
               className="add-task"
             >
-              <CirclePlusIcon size={35} />
-            </button>
-          </footer>
+              Criar tarefa <CirclePlusIcon size={25} />
+            </Button>
+          </div>
         </div>
       </div>
     </>

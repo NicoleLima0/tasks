@@ -1,0 +1,25 @@
+.p-selectbutton{
+    .p-button{
+        padding: 5px;
+        font-size: var(--size);
+    }
+}
+
+.p-column-header-content{
+    font-size: var(--size);
+}
+
+.p-datatable-tbody > tr > td{
+    font-size: var(--size);
+}
+
+.p-dropdown-panel,
+.p-component,
+.p-ripple-disabled, 
+.p-connected-overlay-enter-done {
+    font-size: var(--size) !important;
+}
+
+.p-dropdown-label{
+    font-size: var(--size) !important;
+}

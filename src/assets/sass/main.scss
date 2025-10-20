@@ -1,5 +1,6 @@
 @import "./core.scss";
 @import "./variables.scss";
+@import "./plugin/plugins.scss";
 
 html,
 body,
@@ -10,7 +11,7 @@ body,
     margin: 0;
     font-family: "PoppinsRegular", "Rubik", sans-serif;
     font-family: "Poppins", sans-serif;
-    font-size: 62.5%;
+    // font-size: 62.5%;
 }
 
 body {
