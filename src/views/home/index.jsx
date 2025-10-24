@@ -155,7 +155,7 @@ function Home() {
         taskToEdit={taskToEdit}
       />
       <div className="container">
-        <div className="title">Gerenciador de tarefas</div>
+        <div className="title">Gerenciador de tarefas!</div>
         <div className="view-options">
           <SelectButton
             value={viewMode}
